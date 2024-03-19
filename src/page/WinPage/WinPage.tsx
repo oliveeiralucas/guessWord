@@ -18,7 +18,7 @@ const WinPage: React.FC<WinPageProps> = ({ guesses, wrongLetters }) => {
             <img
               src="/undraw_awards_fieb.svg"
               alt="Avatar do Jogador"
-              className="mr-4 h-48 w-48 animate-bounce rounded-full"
+              className="mr-4 size-48 animate-bounce rounded-full"
             />
           </div>
         </div>

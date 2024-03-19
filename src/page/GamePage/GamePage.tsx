@@ -32,7 +32,6 @@ const GamePage: React.FC = () => {
       const word = wordsInCategory[wordIndex]
       setPickedWord(word)
       SplitLetters(word)
-      console.log(word)
     }
     PickWordAndCategory()
   }, [words])
