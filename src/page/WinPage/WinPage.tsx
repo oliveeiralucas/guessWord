@@ -2,16 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 interface WinPageProps {
-  timeTaken?: string
-  attempts?: number
-  wrongGuesses?: number
+  guesses: number
+  wrongLetters: string[]
 }
 
-const WinPage: React.FC = ({
-  timeTaken,
-  attempts,
-  wrongGuesses
-}: WinPageProps) => {
+const WinPage: React.FC<WinPageProps> = ({ guesses, wrongLetters }) => {
   return (
     <div className="mt-4 overflow-hidden bg-white">
       <div className="mx-auto w-full justify-center px-4 sm:px-6 lg:px-8">
@@ -32,22 +27,10 @@ const WinPage: React.FC = ({
             <div className="mb-3 flex justify-between">
               <div>
                 <span className="mb-3 block font-medium text-gray-600">
-                  Tempo Levado
-                </span>
-                <div className="text-xl font-medium text-gray-900">
-                  {timeTaken} s
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-md">
-            <div className="mb-3 flex justify-between">
-              <div>
-                <span className="mb-3 block font-medium text-gray-600">
                   Tentativas
                 </span>
                 <div className="text-xl font-medium text-gray-900">
-                  {attempts}
+                  {guesses}
                 </div>
               </div>
             </div>
@@ -59,19 +42,13 @@ const WinPage: React.FC = ({
                   Letras Erradas
                 </span>
                 <div className="text-xl font-medium text-gray-900">
-                  {wrongGuesses}
+                  {wrongLetters}
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div className="mt-8 flex justify-center">
-          <Link
-            to="/game"
-            className="mr-4 rounded-full bg-teal-500 px-6 py-3 font-bold text-white hover:bg-teal-600"
-          >
-            Jogar Novamente
-          </Link>
           <Link
             to="/"
             className="rounded-full bg-gray-500 px-6 py-3 font-bold text-white hover:bg-gray-600"
