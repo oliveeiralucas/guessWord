@@ -3,7 +3,7 @@
 import 'primereact/resources/themes/lara-light-cyan/theme.css'
 
 import { InputText } from 'primereact/inputtext'
-import React, { useState } from 'react'
+import React from 'react'
 
 interface GamePageDisplayProps {
   pickedWord: string
@@ -18,6 +18,8 @@ interface GamePageDisplayProps {
     letter: string,
     event: React.KeyboardEvent<HTMLInputElement>
   ) => void
+  inputValue: string
+  setInputValue: (value: string) => void
 }
 
 const GamePageDisplay: React.FC<GamePageDisplayProps> = ({
@@ -26,28 +28,11 @@ const GamePageDisplay: React.FC<GamePageDisplayProps> = ({
   guessesLetters,
   wrongLetters,
   guesses,
-  score,
   handleLetterSubmit,
-  handleInputKeyPress
+  handleInputKeyPress,
+  inputValue,
+  setInputValue
 }) => {
-  const [inputValue, setInputValue] = useState<string>('')
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value)
-  }
-
-  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      handleLetterSubmit(inputValue)
-      setInputValue('') // Limpa o valor do input após o envio
-    }
-  }
-
-  const handleSubmit = () => {
-    setInputValue('') // Limpa o valor do input após o envio
-    handleLetterSubmit(inputValue)
-  }
-
   return (
     <>
       <div className="mt-8">
@@ -55,7 +40,7 @@ const GamePageDisplay: React.FC<GamePageDisplayProps> = ({
         <div className="text-center">
           <h1 className="mb-4 text-4xl font-bold text-teal-500">Guess Word</h1>
           <p className="border p-2 text-xl font-semibold text-gray-500">
-            Pontuação: {score} || Tentativas restantes: {guesses}
+            Tentativas restantes: {guesses}
           </p>
         </div>
 
@@ -118,13 +103,13 @@ const GamePageDisplay: React.FC<GamePageDisplayProps> = ({
             type="text"
             maxLength={1}
             value={inputValue}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyPress}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={(e) => handleInputKeyPress(inputValue, e)}
             className="mr-0 h-10 rounded-l-lg border-y border-l border-gray-200 bg-white p-2 px-4 text-gray-800"
             unstyled
           />
           <button
-            onClick={handleSubmit}
+            onClick={() => handleLetterSubmit(inputValue)}
             className="rounded-r-lg border-y border-r border-teal-500 bg-teal-500 p-2 px-8 font-bold uppercase text-white hover:bg-teal-600"
           >
             Enviar
